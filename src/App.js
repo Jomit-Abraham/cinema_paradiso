@@ -1,24 +1,53 @@
-import logo from './logo.svg';
+import { ChakraProvider, Alert, AlertIcon } from '@chakra-ui/react'
 import './App.css';
+import Login from './Component/Login';
+import Signup from './Component/Signup';
+import { Route, Routes, useNavigate } from 'react-router-dom'
+import Home from './Component/Home';
+import { useState } from 'react';
+import MovieDetails from './Component/MovieDetails';
+
 
 function App() {
+
+  const navigate = useNavigate()
+  const [signupAlert, setSignupAlert] = useState(false)
+  const [movie, setMovie] = useState({})
+  const signupnavigate = () => {
+    navigate('/signup')
+  }
+
+  const loginNavigate = () => {
+    setSignupAlert(true)
+    navigate('/')
+  }
+
+  const homeNavigate = () => {
+
+    navigate('/home')
+  }
+  const moviedetailsNavigation = (movie) => {
+    setMovie(movie)
+    console.log(movie)
+    navigate('/moviedetails')
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <ChakraProvider>
+
+
+        <Routes>
+          <Route path='/' exact element={<Login signupListener={signupnavigate} homeListener={homeNavigate} signupAlert={signupAlert} />}></Route>
+
+          <Route path='/signup/*' element={<Signup loginListener={loginNavigate} />} />
+          <Route path='/home' element={<Home movielistener={moviedetailsNavigation} />} />
+          <Route path='/moviedetails' element={<MovieDetails movie={movie} />} />
+
+        </Routes>
+      </ChakraProvider>
+
+    </div >
   );
 }
 
