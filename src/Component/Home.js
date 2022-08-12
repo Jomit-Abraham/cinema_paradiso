@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Text, Button, Flex, grid, Image, Heading, Select } from '@chakra-ui/react'
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { auth } from './firebase'
 import axios from 'axios'
 import { imgurl } from './Constants'
-import { async } from '@firebase/util'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from './firebase'
+
+
 
 function Home(props) {
+    const moviecollectionref = collection(db, 'movies')
     const [user, setUser] = useState('')
     const [movies, setMovies] = useState([])
     const [gener, setGener] = useState([])
+    const [mymovie, setMymovie] = useState([])
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -25,6 +30,15 @@ function Home(props) {
             setGener(response.data.genres)
             console.log(response.data.genres)
         })
+
+        const getMyMovie = async () => {
+            const data = await getDocs(moviecollectionref)
+
+            setMymovie(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+            console.log(mymovie)
+        }
+
+        getMyMovie()
     }, [])
 
     const generListener = async (e) => {
@@ -40,14 +54,25 @@ function Home(props) {
         props.movielistener(movie)
     }
 
+    const signoutlistener = () => {
+        signOut(auth)
+        props.signout()
+    }
+
+    const addmovie = () => {
+        props.addmovieHandler()
+    }
+
+    console.log(mymovie)
     return (
         <Box w='100%' h='auto' bgGradient='linear(to-l,pink.700, gray.800)' display='grid' alignItems='flex-start' >
 
             <Box width='100%' h='60px' bgGradient='linear(to-l, pink.600, gray.700)' display='flex' justifyContent='space-between'>
                 <Text fontSize='30px' ml='1rem' mt='4px' fontFamily='Arial Black' bgGradient='linear(to-l,blue.500, orange.500)' bgClip='text'>Cinema Paradiso</Text>
                 <Box display='Flex'>
-                    <Text color='white' mt='12px' mr='2rem'>{user}</Text>
-                    <Button colorScheme='teal' variant='solid' size='sm' pb='3px' mt='12px' mr='20px'>Logout</Button>
+                    <Button colorScheme='teal' variant='link' color='white' mr='1rem' onClick={addmovie}>Add your movie</Button>
+                    <Text color='white' mt='18px' mr='2rem'>{user}</Text>
+                    <Button colorScheme='teal' variant='solid' size='sm' pb='3px' mt='12px' mr='20px' onClick={signoutlistener}>Logout</Button>
                 </Box>
 
 
@@ -60,6 +85,15 @@ function Home(props) {
 
                 </Select>
             </Box>
+            <Text color='white' display='flex' ml='2rem'>Your Movies</Text>
+            <Box w='100%' display='grid' gridTemplateColumns='4fr 4fr 4fr 4fr ' mb='2rem'>
+                {
+                    mymovie.map((obj) => <Box> < Image borderRadius='8px' w='370px' h='300px' /* onClick={() => { movieDetailsListener(movie) }} */ ml='25px' mt='30px' mr='25px' src={obj.url}></Image>
+                        <Text mt='1rem' color="white">{obj.name}</Text></Box>
+                    )
+                }
+            </Box>
+            <Text color='white' display='flex' ml='2rem'>Universal Movies</Text>
             <Box display='grid' gridTemplateColumns='4fr 4fr 4fr 4fr ' >
 
                 {

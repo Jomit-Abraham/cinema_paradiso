@@ -6,6 +6,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom'
 import Home from './Component/Home';
 import { useState } from 'react';
 import MovieDetails from './Component/MovieDetails';
+import AddMovie from './Component/AddMovie';
 
 
 function App() {
@@ -32,6 +33,14 @@ function App() {
     navigate('/moviedetails')
   }
 
+  const signoutHandler = () => {
+    navigate('/')
+  }
+
+  const addmovieListener = () => {
+    navigate('/addmovie')
+  }
+
   return (
     <div className="App">
       <ChakraProvider>
@@ -41,8 +50,9 @@ function App() {
           <Route path='/' exact element={<Login signupListener={signupnavigate} homeListener={homeNavigate} signupAlert={signupAlert} />}></Route>
 
           <Route path='/signup/*' element={<Signup loginListener={loginNavigate} />} />
-          <Route path='/home' element={<Home movielistener={moviedetailsNavigation} />} />
+          <Route path='/home' element={<Home movielistener={moviedetailsNavigation} signout={signoutHandler} addmovieHandler={addmovieListener} />} />
           <Route path='/moviedetails' element={<MovieDetails movie={movie} />} />
+          <Route path='/addmovie' element={<AddMovie />}></Route>
 
         </Routes>
       </ChakraProvider>
