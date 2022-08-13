@@ -11,6 +11,8 @@ function Login(props) {
     const [alert, setAlert] = useState(false)
 
 
+
+
     const onClickListener = () => {
 
         props.signupListener()
@@ -31,12 +33,15 @@ function Login(props) {
 
         }
 
+
+
     }
     return (
         <Box w='100%' h='800px' bgGradient='linear(to-r, pink.200, gray.400)' display='flex' alignItems='center' justifyContent='space-between' >
 
             <Box margin='5rem'>
                 <Text fontSize='90px' fontFamily='Arial Black' bgGradient='linear(to-l,blue.500, orange.500)' bgClip='text'>Cinema Paradiso</Text>
+                <Text color='gray' fontSize='10px'> Jomit Abraham</Text>
             </Box>
 
             <Box margin='8rem'>
@@ -55,6 +60,7 @@ function Login(props) {
                     </Alert>
                 }
 
+
                 <Input placeholder='Email' mb='2rem' mt='5rem' color='White' onChange={(e) => { setEmail(e.target.value) }}></Input>
                 <Input placeholder='Password' type='password' onChange={(e) => { setPassword(e.target.value) }}></Input>
 
@@ -65,9 +71,12 @@ function Login(props) {
                     <Button color='Blue' ml='10px' fontFamily='arial' mt='50px' bgColor='white' fontSize='10Px' onClick={onClickListener}>Sign up</Button>
 
 
+
+
                 </Box>
 
             </Box>
+
         </Box >
 
 

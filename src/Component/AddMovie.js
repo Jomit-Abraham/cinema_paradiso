@@ -13,7 +13,7 @@ function AddMovie() {
     const [alert, setAlert] = useState(false)
 
     const newmoviedetails = async () => {
-        await addDoc(moviecollectionref, { name: mname, id: mid, description: mdescription, url: movieurl })
+        await addDoc(moviecollectionref, { original_title: mname, id: mid, overview: mdescription, backdrop_path: movieurl })
         setAlert(true)
         setMname('')
         setMid('')

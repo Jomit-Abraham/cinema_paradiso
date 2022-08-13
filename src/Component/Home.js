@@ -28,14 +28,14 @@ function Home(props) {
 
         axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=08853ad8f67bde441e00d0b7763418d0&language=en-US').then((response) => {
             setGener(response.data.genres)
-            console.log(response.data.genres)
+
         })
 
         const getMyMovie = async () => {
             const data = await getDocs(moviecollectionref)
 
             setMymovie(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-            console.log(mymovie)
+
         }
 
         getMyMovie()
@@ -45,7 +45,7 @@ function Home(props) {
         const id = e.target.value
         await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=08853ad8f67bde441e00d0b7763418d0&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${id}&with_watch_monetization_types=flatrate`).then((response) => {
             setMovies(response.data.results)
-            console.log(e.target.value)
+
 
         })
     }
@@ -63,7 +63,7 @@ function Home(props) {
         props.addmovieHandler()
     }
 
-    console.log(mymovie)
+
     return (
         <Box w='100%' h='auto' bgGradient='linear(to-l,pink.700, gray.800)' display='grid' alignItems='flex-start' >
 
@@ -88,8 +88,8 @@ function Home(props) {
             <Text color='white' display='flex' ml='2rem'>Your Movies</Text>
             <Box w='100%' display='grid' gridTemplateColumns='4fr 4fr 4fr 4fr ' mb='2rem'>
                 {
-                    mymovie.map((obj) => <Box> < Image borderRadius='8px' w='370px' h='300px' /* onClick={() => { movieDetailsListener(movie) }} */ ml='25px' mt='30px' mr='25px' src={obj.url}></Image>
-                        <Text mt='1rem' color="white">{obj.name}</Text></Box>
+                    mymovie.map((obj) => <Box> < Image borderRadius='8px' w='370px' h='300px' onClick={() => { movieDetailsListener(obj) }} ml='25px' mt='30px' mr='25px' src={obj.backdrop_path}></Image>
+                        <Text mt='1rem' color="white">{obj.original_title}</Text></Box>
                     )
                 }
             </Box>
