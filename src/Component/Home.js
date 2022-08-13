@@ -7,8 +7,6 @@ import { imgurl } from './Constants'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from './firebase'
 
-
-
 function Home(props) {
     const moviecollectionref = collection(db, 'movies')
     const [user, setUser] = useState('')
@@ -45,7 +43,6 @@ function Home(props) {
         const id = e.target.value
         await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=08853ad8f67bde441e00d0b7763418d0&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${id}&with_watch_monetization_types=flatrate`).then((response) => {
             setMovies(response.data.results)
-
 
         })
     }
@@ -104,8 +101,6 @@ function Home(props) {
                 }
             </Box>
         </Box >
-
-
     )
 }
 

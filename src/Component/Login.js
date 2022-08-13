@@ -3,21 +3,15 @@ import { Box, Text, Input, Heading, Button, Alert, AlertTitle, AlertIcon } from 
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 import { auth } from './firebase';
 
-
-
 function Login(props) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [alert, setAlert] = useState(false)
 
-
-
-
     const onClickListener = () => {
 
         props.signupListener()
     }
-
     const loginHandler = () => {
 
         try {
@@ -32,9 +26,6 @@ function Login(props) {
         } catch (error) {
 
         }
-
-
-
     }
     return (
         <Box w='100%' h='800px' bgGradient='linear(to-r, pink.200, gray.400)' display='flex' alignItems='center' justifyContent='space-between' >
@@ -60,7 +51,6 @@ function Login(props) {
                     </Alert>
                 }
 
-
                 <Input placeholder='Email' mb='2rem' mt='5rem' color='White' onChange={(e) => { setEmail(e.target.value) }}></Input>
                 <Input placeholder='Password' type='password' onChange={(e) => { setPassword(e.target.value) }}></Input>
 
@@ -70,16 +60,11 @@ function Login(props) {
                     <Text fontFamily='arial' ml='2rem' mt='60px' color='Blue' fontSize='15Px'>New user..?</Text>
                     <Button color='Blue' ml='10px' fontFamily='arial' mt='50px' bgColor='white' fontSize='10Px' onClick={onClickListener}>Sign up</Button>
 
-
-
-
                 </Box>
 
             </Box>
 
         </Box >
-
-
 
     )
 }

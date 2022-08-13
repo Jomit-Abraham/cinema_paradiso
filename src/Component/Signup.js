@@ -5,12 +5,9 @@ import { auth } from './firebase'
 import { Route, Routes } from 'react-router-dom'
 import Home from './Home'
 
-
-
 function Signup(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
 
     const register = async () => {
         try {
@@ -20,9 +17,7 @@ function Signup(props) {
         } catch (error) {
             console.log(error)
         }
-
     }
-
 
     return (
         <Box w='100%' h='800px' bgGradient='linear(to-r, pink.200, gray.400)' display='grid' alignItems='center' >
