@@ -6,6 +6,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom'
 import Home from './Component/Home';
 import { useState } from 'react';
 import MovieDetails from './Component/MovieDetails';
+import YourMovieDetails from './Component/YourMovieDetails';
 import AddMovie from './Component/AddMovie';
 
 
@@ -14,6 +15,7 @@ function App() {
   const navigate = useNavigate()
   const [signupAlert, setSignupAlert] = useState(false)
   const [movie, setMovie] = useState({})
+  const [yourMovie, setYourMovie] = useState({})
   const signupnavigate = () => {
     navigate('/signup')
   }
@@ -40,6 +42,12 @@ function App() {
   const addmovieListener = () => {
     navigate('/addmovie')
   }
+  const yourMovieNavigation = (obj) => {
+
+    setYourMovie(obj)
+    console.log(yourMovie)
+    navigate('/yourmoviedetails')
+  }
 
   return (
     <div className="App">
@@ -50,8 +58,10 @@ function App() {
           <Route path='/' exact element={<Login signupListener={signupnavigate} homeListener={homeNavigate} signupAlert={signupAlert} />}></Route>
 
           <Route path='/signup/*' element={<Signup loginListener={loginNavigate} />} />
-          <Route path='/home' element={<Home movielistener={moviedetailsNavigation} signout={signoutHandler} addmovieHandler={addmovieListener} />} />
+          <Route path='/home' element={<Home movielistener={moviedetailsNavigation} yourMovielistener={yourMovieNavigation} signout={signoutHandler} addmovieHandler={addmovieListener} />} />
+          <Route path='/yourmoviedetails' element={<YourMovieDetails yourmovie={yourMovie} />}></Route>
           <Route path='/moviedetails' element={<MovieDetails movie={movie} />} />
+
           <Route path='/addmovie' element={<AddMovie />}></Route>
 
         </Routes>

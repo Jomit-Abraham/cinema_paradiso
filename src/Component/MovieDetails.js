@@ -2,9 +2,11 @@ import React from 'react'
 import { Box, Text, Button, Flex, grid, Image, Heading, Select, Textarea } from '@chakra-ui/react'
 import { imgurl } from './Constants'
 function MovieDetails(props) {
-
+    console.log(props)
     return (
         <Box w='100%' h='900px' bgGradient='linear(to-l,pink.700, gray.800)' display='grid'  >
+
+
 
             <Image ml='1rem' mt='1.3rem' w='98%' h='550px' Src={`${imgurl + props.movie.backdrop_path}`} alt='Image not available' color='white'></Image>
             <Box w='98%' display='grid' ml='1rem' mr='1.3rem' alignItems='flex-start'>

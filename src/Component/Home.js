@@ -50,6 +50,9 @@ function Home(props) {
     const movieDetailsListener = (movie) => {
         props.movielistener(movie)
     }
+    const yourMovieDetailsListener = (obj) => {
+        props.yourMovielistener(obj)
+    }
 
     const signoutlistener = () => {
         signOut(auth)
@@ -85,7 +88,7 @@ function Home(props) {
             <Text color='white' display='flex' ml='2rem'>Your Movies</Text>
             <Box w='100%' display='grid' gridTemplateColumns='4fr 4fr 4fr 4fr ' mb='2rem'>
                 {
-                    mymovie.map((obj) => <Box> < Image borderRadius='8px' w='370px' h='300px' onClick={() => { movieDetailsListener(obj) }} ml='25px' mt='30px' mr='25px' src={obj.backdrop_path}></Image>
+                    mymovie.map((obj) => <Box> < Image borderRadius='8px' w='370px' h='300px' onClick={() => { yourMovieDetailsListener(obj) }} ml='25px' mt='30px' mr='25px' src={obj.backdrop_path}></Image>
                         <Text mt='1rem' color="white">{obj.original_title}</Text></Box>
                     )
                 }
